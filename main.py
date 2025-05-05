@@ -2,12 +2,26 @@ import discord
 import random
 import addon
 from flask import Flask
+import threading
 import os
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "💖 Bot is running on Render!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))  # Render จะกำหนด PORT ให้ใน env
+    app.run(host="0.0.0.0", port=port)
+
+# รัน Flask ใน thread แยก เพื่อให้ bot Discord ทำงานพร้อมกันได้
+threading.Thread(target=run_flask).start()
 
 ALLOWED_CHANNEL_ID = 1363995505843109948  # ใส่ Channel ID ที่อนุญาต
 
