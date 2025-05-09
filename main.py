@@ -1,5 +1,6 @@
 import discord
 import random
+import addon
 from flask import Flask
 import threading
 import os
