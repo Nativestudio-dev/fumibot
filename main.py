@@ -19,7 +19,6 @@ def run_flask():
     port = int(os.environ.get("PORT", 10000))  # Render จะกำหนด PORT ให้ใน env
     app.run(host="0.0.0.0", port=port)
 
-# รัน Flask ใน thread แยก เพื่อให้ bot Discord ทำงานพร้อมกันได้
 threading.Thread(target=run_flask).start()
 
 ALLOWED_CHANNEL_ID = 1363995505843109948  # ใส่ Channel ID ที่อนุญาต
@@ -48,5 +47,6 @@ async def on_message(message):
         image_path = os.path.join(IMAGE_FOLDER, selected_image)
 
         await message.channel.send(file=discord.File(image_path), content="ส่งความรักให้คุณ 💖")
+        
 
 client.run(os.getenv('TOKEN'))
